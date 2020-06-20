@@ -9,7 +9,9 @@ function App() {
   const [currencyFrom, setCurrencyFrom] = useState('BRL')
   const [currencyTo, setCurrencyTo] = useState('USD')
   const [showSpinner, setShowSpinner] = useState(false)
+  const [showModal, setShowModal] = useState(false)
   const [formValidated, setFormValidated] = useState(false)
+  const [resultConvert, setResultConvert] = useState('')
 
   function handleValue(event) {
     setValue(event.target.value.replace(/\D/g, ''))
@@ -22,15 +24,21 @@ function App() {
   function handleCurrencyTo(event) {
     setCurrencyTo(event.target.value)
   }
+  
+  function handleCloseModal(event) {
+    setValue('1')
+    setFormValidated(false)
+    setShowModal(false)
+  }
 
   function convert(event) {
     event.preventDefault()
     setFormValidated(true)
     if(event.currentTarget.checkValidity() === true) {
-      //TODO - implement the call to fixer
+      setShowModal(true)
     }
-
   }
+
 
   return (
     <>
@@ -76,15 +84,17 @@ function App() {
             </Col>
           </Form.Row>
         </Form>
-        <Modal show={false}>
+        <Modal show={showModal} onHide={handleCloseModal}>
           <Modal.Header closeButton>
             <Modal.Title>Conversão</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            Resultado da conversão aqui...
+            {resultConvert}
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="success">Nova Conversão</Button>
+            <Button variant="success" onClick={handleCloseModal}>
+              Nova Conversão
+            </Button>
           </Modal.Footer>
         </Modal>
       </Jumbotron>
