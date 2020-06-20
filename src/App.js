@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { Jumbotron, Form, Button, Col, Spinner, Alert } from 'react-bootstrap'
+import { Jumbotron, Form, Button, Col, Spinner, Alert, Modal } from 'react-bootstrap'
 import { FaAngleDoubleRight } from 'react-icons/fa'
 
 function App() {
@@ -39,6 +39,17 @@ function App() {
             </Col>
           </Form.Row>
         </Form>
+        <Modal show={true}>
+          <Modal.Header closeButton>
+            <Modal.Title>Conversão</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            Resultado da conversão aqui...
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="success">Nova Conversão</Button>
+          </Modal.Footer>
+        </Modal>
       </Jumbotron>
     </>
   );
