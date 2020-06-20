@@ -5,7 +5,7 @@ import { FaAngleDoubleRight } from 'react-icons/fa'
 import axios from 'axios'
 import ListCurrencies from './ListCurrencies'
 
-const FIXER_URL = 'http://data.fixer.io/api/latest?access_key=406d48996ebc3d65084baabd20b3e577&format=1'
+const FIXER_URL = 'https://data.fixer.io/api/latest?access_key=406d48996ebc3d65084baabd20b3e577&format=1'
 
 function App() {
   const [value, setValue] = useState('1')
