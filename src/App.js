@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import './App.css';
 import { Jumbotron, Form, Button, Col, Spinner, Alert, Modal } from 'react-bootstrap'
 import { FaAngleDoubleRight } from 'react-icons/fa'
+import axios from 'axios'
 import ListCurrencies from './ListCurrencies'
+
+const FIXER_URL = 'http://data.fixer.io/api/latest?access_key=406d48996ebc3d65084baabd20b3e577&format=1'
 
 function App() {
   const [value, setValue] = useState('1')
-  const [currencyFrom, setCurrencyFrom] = useState('BRL')
-  const [currencyTo, setCurrencyTo] = useState('USD')
+  const [currencyFrom, setCurrencyFrom] = useState('USD')
+  const [currencyTo, setCurrencyTo] = useState('BRL')
   const [showSpinner, setShowSpinner] = useState(false)
   const [showModal, setShowModal] = useState(false)
   const [formValidated, setFormValidated] = useState(false)
@@ -33,10 +36,27 @@ function App() {
 
   function convert(event) {
     event.preventDefault()
-    setFormValidated(true)
     if(event.currentTarget.checkValidity() === true) {
-      setShowModal(true)
+      setFormValidated(true)
+      setShowSpinner(true)
+      axios.get(FIXER_URL)
+        .then(res => {
+          const quotation = getQuote(res.data)
+          setResultConvert(`${value} ${currencyFrom} = ${quotation} ${currencyTo} `)
+          setShowModal(true)
+          setShowSpinner(false)
+        })
     }
+  }
+
+  function getQuote(quoteData) {
+    if(!quoteData || quoteData.success !== true) {
+      return false;
+    }
+    const quoteFrom = quoteData.rates[currencyFrom]
+    const quoteTo = quoteData.rates[currencyTo]
+    const quoteResult = (1 / quoteFrom * quoteTo) * value
+    return quoteResult.toFixed(2);
   }
 
 
