@@ -107,7 +107,7 @@ function App() {
               </Form.Control>
             </Col>
             <Col sm="2">
-              <Button variant="success" type="submit">
+              <Button variant="success" type="submit" data-testid="btn-convertion">
                 <span className={showSpinner ? "" : "hidden"}>
                   <Spinner animation="border" size="sm" />
                 </span>
@@ -118,11 +118,11 @@ function App() {
             </Col>
           </Form.Row>
         </Form>
-        <Modal show={showModal} onHide={handleCloseModal}>
+        <Modal show={showModal} onHide={handleCloseModal} >
           <Modal.Header closeButton>
             <Modal.Title>Conversão</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
+          <Modal.Body data-testid="modal">
             {resultConvert}
           </Modal.Body>
           <Modal.Footer>
