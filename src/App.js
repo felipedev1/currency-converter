@@ -13,6 +13,7 @@ function App() {
   const [currencyTo, setCurrencyTo] = useState('BRL')
   const [showSpinner, setShowSpinner] = useState(false)
   const [showModal, setShowModal] = useState(false)
+  const [showErrorMessage, setShowErrorMessage] = useState(false)
   const [formValidated, setFormValidated] = useState(false)
   const [resultConvert, setResultConvert] = useState('')
 
@@ -42,11 +43,24 @@ function App() {
       axios.get(FIXER_URL)
         .then(res => {
           const quotation = getQuote(res.data)
-          setResultConvert(`${value} ${currencyFrom} = ${quotation} ${currencyTo} `)
-          setShowModal(true)
-          setShowSpinner(false)
+          if(quotation) {
+            setResultConvert(`${value} ${currencyFrom} = ${quotation} ${currencyTo} `)
+            setShowModal(true)
+            setShowSpinner(false)
+            setShowErrorMessage(false)
+          } else {
+            showError()
+          }
         })
+        .catch(err => {
+          showError()
+        })
+      }
     }
+    
+    function showError(){
+      setShowSpinner(false)
+      setShowErrorMessage(true)
   }
 
   function getQuote(quoteData) {
@@ -63,7 +77,7 @@ function App() {
   return (
     <>
       <h1>Conversor de moedas</h1>
-      <Alert variant="danger" show={false}>
+      <Alert variant="danger" show={showErrorMessage}>
         Erro obtendo dados de conversão, tente novamente.
       </Alert>
       <Jumbotron>
