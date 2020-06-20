@@ -1,12 +1,15 @@
 import React from 'react';
 import './App.css';
-import { Jumbotron, Form, Button, Col, Spinner } from 'react-bootstrap'
+import { Jumbotron, Form, Button, Col, Spinner, Alert } from 'react-bootstrap'
 import { FaAngleDoubleRight } from 'react-icons/fa'
 
 function App() {
   return (
     <>
       <h1>Conversor de moedas</h1>
+      <Alert variant="danger" show={false}>
+        Erro obtendo dados de conversão, tente novamente.
+      </Alert>
       <Jumbotron>
         <Form>
           <Form.Row>
