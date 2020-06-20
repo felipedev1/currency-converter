@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import { Jumbotron, Form, Button, Col, Spinner, Alert, Modal } from 'react-bootstrap'
 import { FaAngleDoubleRight } from 'react-icons/fa'
+import ListCurrencies from './ListCurrencies'
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
             </Col>
             <Col sm="3">
               <Form.Control as="select" >
-
+                <ListCurrencies />
               </Form.Control>
             </Col>
             <Col sm="1" className="text-center" style={{paddingTop: '5px'}}>
@@ -28,7 +29,7 @@ function App() {
             </Col>
             <Col sm="3">
               <Form.Control as="select" >
-
+                <ListCurrencies />
               </Form.Control>
             </Col>
             <Col sm="2">
@@ -39,7 +40,7 @@ function App() {
             </Col>
           </Form.Row>
         </Form>
-        <Modal show={true}>
+        <Modal show={false}>
           <Modal.Header closeButton>
             <Modal.Title>Conversão</Modal.Title>
           </Modal.Header>
